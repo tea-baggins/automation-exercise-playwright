@@ -1,4 +1,4 @@
-# Automation Exercise Playwright 2025
+# Automation Exercise Playwright 
 
 <p align="center">
   <img src="https://www.automationexercise.com/static/images/home/logo.png" alt="Website for practice automation" width="350" />
