@@ -1,12 +1,23 @@
 {
-  "name": "playwright_automation_exercise",
+  "name": "automation-exercise-playwright",
   "version": "1.0.0",
-  "description": "",
+  "description": "Automated UI tests for Automation Exercise website using Playwright and Page Object Model",
   "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "test:debug": "npx playwright test --debug",
+    "report": "npx playwright show-report"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "pom",
+    "javascript"
+  ],
+  "author": "tea-baggins",
+  "license": "MIT",
   "devDependencies": {
     "@playwright/test": "^1.55.0",
     "@types/node": "^24.1.0"

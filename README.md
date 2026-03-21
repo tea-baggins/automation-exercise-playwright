@@ -4,62 +4,80 @@
   <img src="https://www.automationexercise.com/static/images/home/logo.png" alt="Website for practice automation" width="350" />
 </p>
 
-AutomationExercise is a public e-commerce demo site created for QA engineers to practice automation and API testing at any level, from beginner to advanced. This framework provides automated UI test coverage for the site's core features using Playwright and JavaScript.
+AutomationExercise is a public e-commerce demo site created for QA engineers to practice automation and API testing. This framework provides automated UI test coverage using **Playwright** and **JavaScript**, implementing professional testing patterns.
 
-## 🚀 Features
+[![Playwright Tests](https://github.com/tea-baggins/automation-exercise-playwright/actions/workflows/playwright.yml/badge.svg)](https://github.com/tea-baggins/automation-exercise-playwright/actions)
 
-- Automated UI tests for registration, login, product search, product cart management, and checkout procedure.
-- Clean Page Object Model architecture for easy maintenance.
-- Tests include validation of UI elements, cart price, file downloads, etc.
-- Global setup and teardown ensure a consistent starting state for tests.
+---
+
+## 🌟 Key Features
+
+* **Design Pattern:** Advanced **Page Object Model (POM)** for high maintainability.
+* **Base Page Logic:** Centralized common actions in a `BasePage` class to reduce code duplication.
+* **CI/CD Integration:** Automated test execution on every push via **GitHub Actions**.
+* **Comprehensive Reporting:** Detailed HTML reports with traces and screenshots on failure.
 
 ## 📁 Project Structure
 
-- `/pages/` — Page Object classes for UI components and methods.
-- `/tests/` — Contains test files written in JavaScript using Playwright.
-- `/data/` — Test data files (e.g., JSON files for test inputs).
-- `package.json` — Defines project dependencies and scripts.
-- `playwright.config.js` — Playwright configuration file.
+The project follows a strict POM architecture located in the `POM/` directory:
+
+* `POM/BasePage.js` — Base class containing common locators and shared methods.
+* `POM/Pages/` — Page-specific classes (Login, Register, Contact, etc.) with unique actions.
+* `POM/tests/` — Clean test scripts organized by feature.
+* `playwright.config.js` — Main framework configuration.
+* `package.json` — Project dependencies and automation scripts.
+
+---
 
 ## 📚 Prerequisites
 
-- Chrome, Firefox, or WebKit browser (Playwright supports multiple browsers).
-- [Node.js version 18 or higher](https://nodejs.org/en/download).
-- npm (comes bundled with Node.js).
-- VSCode or any code editor.
-- Playwright (installed automatically via npm).
+* [Node.js version 18 or higher](https://nodejs.org/en/download).
+* **npm** (comes bundled with Node.js).
+* **Playwright** (installed via npm).
 
-## ⚙ How to Run
+## ⚙️ How to Run
 
-1. Clone the repository  
-   `git clone https://github.com/tea-baggins/automation-exercise-playwright`
-2. Navigate to the project folder  
-   `cd automationexercise-playwright`
-3. Install dependencies  
-   `npm install`
-4. Run Playwright tests in headed mode (with UI)  
-   `npx playwright test --headed`
-5. Run all tests headlessly (CLI)  
-   `npx playwright test`
-6. Generate and view the Playwright HTML report  
-   `npx playwright show-report`
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/tea-baggins/automation-exercise-playwright
+   ```
+2. **Navigate to project folder:**
+   ```bash
+   cd automation-exercise-playwright
+   ```
+3. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+4. **Install browsers:**
+   ```bash
+   npx playwright install
+   ```
+5. **Run all tests (Headless):**
+   ```bash
+   npx playwright test
+   ```
+6. **Run tests in UI mode:**
+   ```bash
+   npx playwright test --ui
+   ```
 
-_Note:_ Global setup and teardown run before and after each test to reset the testing environment.
+> **Note:** Global setup and teardown run before and after each test to reset the testing environment.
 
-### Debugging
+## 🛠 Debugging
 
 To debug tests, use Playwright’s Inspector or debug mode:  
 `npx playwright test --debug`
 
 ## 🧑‍💻 Project Coding Convention
 
-- Page Object files: camelCase (e.g., `headerPage.js`, `loginPage.js`).
-- Test files: camelCase with `.spec.js` extension (e.g., `addProductsInCart.spec.js`).
-- Use descriptive names for `test.describe` blocks (feature or scenario) and `test` blocks (test case), e.g., `TC_11 | Verify add products in cart`.
+* **Page Object files:** camelCase (e.g., `headerPage.js`, `loginPage.js`).
+* **Test files:** camelCase with `.spec.js` extension (e.g., `addProductsInCart.spec.js`).
+* **Naming:** Use descriptive names for `test.describe` blocks (feature or scenario) and `test` blocks (test case), e.g., `TC_11 | Verify add products in cart`.
 
 ### Example Test Structure
 
-```
+```javascript
 import { test, expect } from '@playwright/test';
 
 test.describe('Add Products in Cart', () => {
@@ -69,23 +87,15 @@ test.describe('Add Products in Cart', () => {
 });
 ```
 
-## 📜 MUST-FOLLOW RULES
+## 🤖 CI/CD Implementation
 
-- Do not install any new libraries, plugins, or tools without approval.
-- Do not modify existing configuration files (`playwright.config.js`, `package.json`, etc.) unless instructed.
-- Focus changes on test scripts and test-related assets only.
-- Commit only test-related files; do not commit build files, lock files, or config files unless necessary.
+This project uses GitHub Actions to ensure code quality. The pipeline automatically:
+1. Provisions a Linux environment.
+2. Installs Node.js and project dependencies.
+3. Runs the entire test suite.
+4. Uploads an HTML report as an artifact if any test fails.
 
-**Do not push changes to these files:**
+## 📝 License & Contribution
 
-- `README.md`
-- `package.json`
-- `package-lock.json`
-- `playwright.config.js`
-- `.gitignore`
-- Any other non-test-related files
-
-## 📝 License
-
-## This project is open-source and intended for educational purposes.
+This project is **open-source** and intended for educational purposes. Feel free to use it as a reference for learning Playwright and Page Object Model patterns.
 Practice your automation skills at: [https://www.automationexercise.com](https://www.automationexercise.com)
