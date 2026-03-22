@@ -1,12 +1,12 @@
 # Automation Exercise Playwright 
 
+[![Playwright Tests](https://github.com/tea-baggins/automation-exercise-playwright/actions/workflows/playwright.yml/badge.svg)](https://github.com/tea-baggins/automation-exercise-playwright/actions)
+
 <p align="center">
   <img src="https://www.automationexercise.com/static/images/home/logo.png" alt="Website for practice automation" width="350" />
 </p>
 
 AutomationExercise is a public e-commerce demo site created for QA engineers to practice automation and API testing. This framework provides automated UI test coverage using **Playwright** and **JavaScript**, implementing professional testing patterns.
-
-[![Playwright Tests](https://github.com/tea-baggins/automation-exercise-playwright/actions/workflows/playwright.yml/badge.svg)](https://github.com/tea-baggins/automation-exercise-playwright/actions)
 
 ---
 
