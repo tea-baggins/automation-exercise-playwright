@@ -2,7 +2,6 @@ import { test, expect } from "../helpers/fixtures";
 import AccountCreatedPage from "../pageObject/accountCreatedPage";
 import CheckoutPge from "../pageObject/checkoutPage";
 import Header from "../pageObject/header";
-import HomePage from "../pageObject/homePage";
 import LoginPage from "../pageObject/loginPage";
 import ProductsPage from "../pageObject/productsPage";
 import SignupPage from "../pageObject/signupPage";
@@ -19,9 +18,9 @@ import PaymentDonePage from "../pageObject/paymentDonePage";
 
 test.describe("Download Invoice after purchase order", () => {
   test("TC_24 |Verify download invoice after purchase order", async ({
-    page,
+    homePage,
+    page
   }) => {
-    const homePage = new HomePage(page);
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);
@@ -67,7 +66,7 @@ test.describe("Download Invoice after purchase order", () => {
     const accountCreatedPage = new AccountCreatedPage(page);
     await expect(accountCreatedPage.getMessageAccountCreated()).toBeVisible();
     await expect(accountCreatedPage.getMessageAccountCreated()).toHaveText(
-      "Account Created!"
+      "Account Created!",
     );
     await accountCreatedPage.clickContinueButton();
     await expect(header.getLoggedInAs()).toBeVisible();
@@ -90,7 +89,7 @@ test.describe("Download Invoice after purchase order", () => {
 
     const paymentDonePage = new PaymentDonePage(page);
     await expect(paymentDonePage.getSuccessMessage()).toBeVisible();
-    
+
     // Download the invoice and check
     const savePath = await paymentDonePage.downloadFile();
     console.log(`Invoice downloaded on the path: ${savePath}`);

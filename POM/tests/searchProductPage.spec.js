@@ -1,11 +1,9 @@
 import { test, expect } from "../helpers/fixtures";
 import Header from "../pageObject/header";
-import HomePage from "../pageObject/homePage";
 import ProductsPage from "../pageObject/productsPage";
 
 test.describe("Search Product", () => {
-  test("TC_09 |Verify search product", async ({ page }) => {
-    const homePage = new HomePage(page);
+  test("TC_09 |Verify search product", async ({ homePage, page }) => {
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);

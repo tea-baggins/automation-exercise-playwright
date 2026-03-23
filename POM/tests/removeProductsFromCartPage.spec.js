@@ -1,12 +1,13 @@
 import { test, expect } from "../helpers/fixtures";
 import Header from "../pageObject/header";
-import HomePage from "../pageObject/homePage";
 import ProductsPage from "../pageObject/productsPage";
 import ViewCartPage from "../pageObject/viewCartPage";
 
 test.describe("Remove Products From Cart", () => {
-  test("TC_17 |Verify remove products from cart", async ({ page }) => {
-    const homePage = new HomePage(page);
+  test("TC_17 |Verify remove products from cart", async ({
+    homePage,
+    page,
+  }) => {
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);
@@ -25,10 +26,10 @@ test.describe("Remove Products From Cart", () => {
     expect(productCount).toBe(2);
 
     await viewCartPage.clickDeleteProductButton(0);
-     // I expect that the product with index 0 will be removed from the DOM
-    await page.locator('tr#product-1').waitFor({ state: 'detached' });
+    // I expect that the product with index 0 will be removed from the DOM
+    await page.locator("tr#product-1").waitFor({ state: "detached" });
 
-   // Check that the product has actually been removed (for example, the number of products has decreased)
+    // Check that the product has actually been removed (for example, the number of products has decreased)
     const count = await viewCartPage.getProductCount();
     expect(count).toBe(1);
   });

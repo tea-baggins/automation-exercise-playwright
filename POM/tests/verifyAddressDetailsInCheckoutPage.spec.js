@@ -1,6 +1,5 @@
 import { test, expect } from "../helpers/fixtures";
 import Header from "../pageObject/header";
-import HomePage from "../pageObject/homePage";
 import LoginPage from "../pageObject/loginPage";
 import SignupPage from "../pageObject/signupPage";
 import AccountCreatedPage from "../pageObject/accountCreatedPage";
@@ -11,8 +10,10 @@ import { newUserSignUp, SignupData } from "../helpers/testData";
 import { generateUniqueEmail } from "../helpers/utils";
 
 test.describe("Verify address details in checkout page", () => {
-  test("TC_23 |Verify address details in checkout page", async ({ page }) => {
-    const homePage = new HomePage(page);
+  test("TC_23 |Verify address details in checkout page", async ({
+    homePage,
+    page
+  }) => {
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);
@@ -47,7 +48,7 @@ test.describe("Verify address details in checkout page", () => {
     const accountCreatedPage = new AccountCreatedPage(page);
     await expect(accountCreatedPage.getMessageAccountCreated()).toBeVisible();
     await expect(accountCreatedPage.getMessageAccountCreated()).toHaveText(
-      "Account Created!"
+      "Account Created!",
     );
     await accountCreatedPage.clickContinueButton();
     await expect(header.getLoggedInAs()).toBeVisible();

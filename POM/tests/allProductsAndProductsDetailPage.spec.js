@@ -1,14 +1,13 @@
 import { test, expect } from "../helpers/fixtures";
 import Header from "../pageObject/header";
-import HomePage from "../pageObject/homePage";
 import ProductDetailsPage from "../pageObject/productDetailsPage";
 import ProductsPage from "../pageObject/productsPage";
 
 test.describe("Verify All Products and product detail page", () => {
   test("TC_08 |Verify all products and product detail page", async ({
-    page,
+    homePage,
+    page
   }) => {
-    const homePage = new HomePage(page);
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);

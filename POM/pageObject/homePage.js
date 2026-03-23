@@ -15,7 +15,7 @@ class HomePage {
       this.page.locator(".recommended_items"),
     getAddToCartButton: () =>
       this.page.locator(
-        ".recommended_items a.add-to-cart[data-product-id='1']"
+        ".recommended_items a.add-to-cart[data-product-id='1']",
       ),
     getScrollUpArrow: () => this.page.locator('a[href="#top"]'),
   };
@@ -25,7 +25,7 @@ class HomePage {
   }
 
   getLogoAutomationExercise() {
-    return this.page.locator(".logo.pull-left");
+    return this.page.locator("div.logo.pull-left");
   }
 
   getCategoryLeftSideBar() {

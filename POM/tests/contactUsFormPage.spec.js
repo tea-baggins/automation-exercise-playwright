@@ -1,12 +1,10 @@
 import { test, expect } from "../helpers/fixtures";
 import Header from "../pageObject/header";
-import HomePage from "../pageObject/homePage";
 import ContactUsPage from "../pageObject/contactUsPage";
 import { contactUsData, filePath } from "../helpers/testData";
 
 test.describe("Contact Us Form", () => {
-  test("TC_06 |Verify contact us form", async ({ page }) => {
-    const homePage = new HomePage(page);
+  test("TC_06 |Verify contact us form", async ({ homePage, page }) => {
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);

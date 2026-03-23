@@ -1,6 +1,5 @@
 import { test, expect } from "../helpers/fixtures";
 import Header from "../pageObject/header";
-import HomePage from "../pageObject/homePage";
 import LoginPage from "../pageObject/loginPage";
 import ProductsPage from "../pageObject/productsPage";
 import SignupPage from "../pageObject/signupPage";
@@ -21,9 +20,9 @@ import DeleteAccountPage from "../pageObject/deleteAccountPage";
 
 test.describe("Place Order: Register while Checkout", () => {
   test("TC_14 |Verify Place Order: register while checkout", async ({
-    page,
+    homePage,
+    page
   }) => {
-    const homePage = new HomePage(page);
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);
@@ -73,7 +72,7 @@ test.describe("Place Order: Register while Checkout", () => {
     const accountCreatedPage = new AccountCreatedPage(page);
     await expect(accountCreatedPage.getMessageAccountCreated()).toBeVisible();
     await expect(accountCreatedPage.getMessageAccountCreated()).toHaveText(
-      "Account Created!"
+      "Account Created!",
     );
     await accountCreatedPage.clickContinueButton();
     await expect(header.getLoggedInAs()).toBeVisible();
@@ -106,9 +105,9 @@ test.describe("Place Order: Register while Checkout", () => {
   });
 
   test("TC_15 |Verify Place Order: register before checkout", async ({
-    page,
+    homePage,
+    page
   }) => {
-    const homePage = new HomePage(page);
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);
@@ -145,7 +144,7 @@ test.describe("Place Order: Register while Checkout", () => {
     const accountCreatedPage = new AccountCreatedPage(page);
     await expect(accountCreatedPage.getMessageAccountCreated()).toBeVisible();
     await expect(accountCreatedPage.getMessageAccountCreated()).toHaveText(
-      "Account Created!"
+      "Account Created!",
     );
     await accountCreatedPage.clickContinueButton();
     await expect(header.getLoggedInAs()).toBeVisible();
@@ -185,8 +184,10 @@ test.describe("Place Order: Register while Checkout", () => {
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
   });
 
-  test("TC_16 |Verify Place Order: login before checkout", async ({ page }) => {
-    const homePage = new HomePage(page);
+  test("TC_16 |Verify Place Order: login before checkout", async ({
+    homePage,
+    page
+  }) => {
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);
@@ -194,7 +195,7 @@ test.describe("Place Order: Register while Checkout", () => {
 
     const loginPage = new LoginPage(page);
     await loginPage.fillEmailAddressFieldLogin(
-      loginToYourAccountForm.emailAddress
+      loginToYourAccountForm.emailAddress,
     );
     await loginPage.fillPasswordField(loginToYourAccountForm.password);
     await loginPage.clickLoginButton();

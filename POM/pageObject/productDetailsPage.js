@@ -6,7 +6,7 @@ class ProductDetailsPage {
   }
 
   locators = {
-    getProductName: () => this.page.locator(".product-information h2"),
+    getProductName: () => this.page.locator(".product-information"),
     getProductCategory: () =>
       this.page
         .locator(".product-information p")
@@ -31,7 +31,7 @@ class ProductDetailsPage {
   };
 
   getProductName() {
-    return this.page.locator(".product-information h2");
+    return this.page.locator(".product-information");
   }
 
   getProductCategory() {

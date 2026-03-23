@@ -20,6 +20,8 @@
   "license": "MIT",
   "devDependencies": {
     "@playwright/test": "^1.55.0",
-    "@types/node": "^24.1.0"
+    "@types/node": "^24.1.0",
+    "allure-commandline": "^2.38.1",
+    "allure-playwright": "^3.6.0"
   }
 }

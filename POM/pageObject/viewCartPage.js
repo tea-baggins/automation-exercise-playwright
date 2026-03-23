@@ -1,4 +1,4 @@
-import CheckoutPge from "./checkoutPage";
+import CheckoutPage from "./checkoutPage";
 import LoginPage from "./loginPage";
 
 class ViewCartPage {
@@ -9,6 +9,7 @@ class ViewCartPage {
   locators = {
     getTableInfo: () =>
       this.page.locator("table#cart_info_table.table.table-condensed"),
+    getCartTable: () => this.page.locator("table#cart_info_table"),
     getProductName1: () =>
       this.page.locator("tr#product-1 td.cart_description h4 a"),
     getProduct1PriceText: () =>
@@ -41,12 +42,62 @@ class ViewCartPage {
       this.page.locator(".modal-body a[href='/login']"),
   };
 
+  /**
+   * Counts the number of products currently present in the cart table.
+   * @returns {Promise<number>} The total count of product rows.
+   */
   async getProductCount() {
-    return await this.page.locator(".cart_product").count();
+    /**
+     * 1. Wait for the table container to be attached to the DOM.
+     * This ensures the shopping cart data has been loaded from the server
+     * before we attempt to count the rows.
+     */
+    await this.getTableInfo().waitFor({ state: "attached", timeout: 15000 });
+
+    /**
+     * 2. Locate and count all table rows where the ID starts with 'product-'.
+     * Using a prefix selector ensures we only count actual product entries.
+     */
+    return await this.page.locator('tr[id^="product-"]').count();
+  }
+  getTableInfo() {
+    return this.locators.getCartTable();
   }
 
-  getTableInfo() {
-    return this.page.locator("table#cart_info_table.table.table-condensed");
+  /**
+   * Verifies if the Cart page is correctly loaded and contains products.
+   * Includes a debug screenshot and explicit error handling for empty states.
+   * @returns {Promise<Locator>} The cart info table locator if successful.
+   */
+  async isCartPageLoaded() {
+    // 1. Wait for the URL transition to the checkout/view_cart area
+    await this.page.waitForURL("**/view_cart", { timeout: 15000 });
+
+    /**
+     * 2. Debugging Tool: Capture a screenshot of the current view.
+     * This is crucial for CI/CD environments to visually confirm
+     * why a test might have failed during the cart verification.
+     */
+    await this.page.screenshot({ path: "cart_debug.png" });
+
+    const table = this.page.locator("table#cart_info_table");
+    const emptyCartText = this.page.getByText("Cart is empty");
+
+    /**
+     * 3. Explicit Validation: Check if the "Cart is empty" message is visible.
+     * If true, we throw a custom error to immediately identify that
+     * the product addition step failed before reaching the cart.
+     */
+    if (await emptyCartText.isVisible()) {
+      throw new Error(
+        "Validation Failed: The cart is empty. Products were not added successfully!",
+      );
+    }
+
+    // 4. Ensure the cart table is attached to the DOM before proceeding
+    await table.waitFor({ state: "attached", timeout: 15000 });
+
+    return table;
   }
 
   // First product
@@ -140,7 +191,7 @@ class ViewCartPage {
 
   async clickProceedToCheckoutButton() {
     await this.locators.getProceedeToCheckoutButton().click();
-    return new CheckoutPge(this.page);
+    return new CheckoutPage(this.page);
   }
 
   async clicKRegisterLogin() {

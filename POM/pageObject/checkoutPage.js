@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 import PaymentPage from "./paymentPage";
 
-class CheckoutPge {
+class CheckoutPage {
   constructor(page) {
     this.page = page;
   }
@@ -43,4 +43,4 @@ class CheckoutPge {
     return new PaymentPage(this.page);
   }
 }
-export default CheckoutPge;
+export default CheckoutPage;

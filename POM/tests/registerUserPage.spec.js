@@ -4,12 +4,11 @@ import LoginPage from "../pageObject/loginPage";
 import SignupPage from "../pageObject/signupPage";
 import AccountCreatedPage from "../pageObject/accountCreatedPage";
 import { newUserSignUp, SignupData } from "../helpers/testData";
-import HomePage from "../pageObject/homePage";
 import { generateUniqueEmail } from "../helpers/utils";
 import DeleteAccountPage from "../pageObject/deleteAccountPage";
 
 test.describe("Register User", () => {
-  test("TC_01 |Verify register user", async ({ page }) => {
+  test("TC_01 |Verify register user", async ({ homePage, page }) => {
     const header = new Header(page);
     await header.clickSignupLoginLink();
 
@@ -45,7 +44,7 @@ test.describe("Register User", () => {
     const accountCreatedPage = new AccountCreatedPage(page);
     await expect(accountCreatedPage.getMessageAccountCreated()).toBeVisible();
     await expect(accountCreatedPage.getMessageAccountCreated()).toHaveText(
-      "Account Created!"
+      "Account Created!",
     );
     await accountCreatedPage.clickContinueButton();
     await expect(header.getLoggedInAs()).toBeVisible();
@@ -53,11 +52,10 @@ test.describe("Register User", () => {
     await header.clickDeleteAccounLinkt();
     const deleteAccounPage = new DeleteAccountPage(page);
     await expect(
-      deleteAccounPage.getAccountDeleted("Account Dleted!")
+      deleteAccounPage.getAccountDeleted("Account Dleted!"),
     ).toBeVisible();
     await deleteAccounPage.clickContinueButton();
 
-    const homePage = new HomePage(page);
     await homePage.loadHomePage();
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
   });

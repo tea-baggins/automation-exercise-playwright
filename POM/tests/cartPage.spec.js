@@ -1,12 +1,13 @@
 import { test, expect } from "../helpers/fixtures";
 import Footer from "../pageObject/footer";
-import HomePage from "../pageObject/homePage";
 import { loginToYourAccountForm } from "../helpers/testData";
 import Header from "../pageObject/header";
 
 test.describe("Verify Subscription in Cart page", () => {
-  test("TC_11 | Verify subscription in cart page", async ({ page }) => {
-    const homePage = new HomePage(page);
+  test("TC_11 | Verify subscription in cart page", async ({
+    homePage,
+    page
+  }) => {
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);

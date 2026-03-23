@@ -107,7 +107,27 @@ class SignupPage {
   }
 
   async clickCreateAccountButton() {
-    await this.locators.getCreateAccountButton().click();
+    const button = this.locators.getCreateAccountButton();
+
+    // 1. Ensure the button is in the viewport to avoid hidden element issues
+    await button.scrollIntoViewIfNeeded();
+
+    // 2. Perform the click via dispatchEvent to bypass any invisible ad overlays
+    await button.dispatchEvent("click");
+
+    /** * RELIABILITY FALLBACK:
+     * If the 'Account Created!' confirmation doesn't appear within 5 seconds,
+     * it means the first click was likely intercepted by a dynamic ad script.
+     * In this case, we perform a secondary click to ensure the form is submitted.
+     */
+    const successText = this.page.getByText("Account Created!");
+    try {
+      await successText.waitFor({ state: "visible", timeout: 5000 });
+    } catch (e) {
+      // Retry the click if the navigation didn't happen
+      await button.dispatchEvent("click");
+    }
+
     return new AccountCreatedPage(this.page);
   }
 }

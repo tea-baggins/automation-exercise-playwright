@@ -1,12 +1,13 @@
 import { test, expect } from "../helpers/fixtures";
 import Header from "../pageObject/header";
-import HomePage from "../pageObject/homePage";
 import { existingUser } from "../helpers/testData";
 import LoginPage from "../pageObject/loginPage";
 
 test.describe("Register User with existing email", () => {
-  test("TC_05 |Verify register user with existing email", async ({ page }) => {
-    const homePage = new HomePage(page);
+  test("TC_05 |Verify register user with existing email", async ({
+    homePage,
+    page
+  }) => {
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);
@@ -20,7 +21,7 @@ test.describe("Register User with existing email", () => {
     await loginPage.clickSignupButton();
     await loginPage.getErrorMessageEmailAddressExistText();
     await expect(
-      loginPage.getErrorMessageEmailAddressExistText()
+      loginPage.getErrorMessageEmailAddressExistText(),
     ).toBeVisible();
   });
 });

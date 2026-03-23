@@ -1,6 +1,5 @@
 import { test, expect } from "../helpers/fixtures";
 import Header from "../pageObject/header";
-import HomePage from "../pageObject/homePage";
 import LoginPage from "../pageObject/loginPage";
 import ProductsPage from "../pageObject/productsPage";
 import ViewCartPage from "../pageObject/viewCartPage";
@@ -8,9 +7,9 @@ import { loginToYourAccountForm } from "../helpers/testData";
 
 test.describe("Search Products and Verify Cart After Login", () => {
   test("TC_20 |Verify search products and verify cart after login", async ({
-    page,
+    homePage,
+    page
   }) => {
-    const homePage = new HomePage(page);
     await expect(homePage.getLogoAutomationExercise()).toBeVisible();
 
     const header = new Header(page);
@@ -39,7 +38,7 @@ test.describe("Search Products and Verify Cart After Login", () => {
     await loginPage.getLoginToYourAccount();
     await expect(loginPage.getLoginToYourAccount()).toBeVisible();
     await loginPage.fillEmailAddressFieldLogin(
-      loginToYourAccountForm.emailAddress
+      loginToYourAccountForm.emailAddress,
     );
     await loginPage.fillPasswordField(loginToYourAccountForm.password);
     await loginPage.clickLoginButton();
