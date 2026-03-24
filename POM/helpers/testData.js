@@ -48,7 +48,7 @@ export const contactUsData = {
 };
 
 export const filePath = {
-  file: "Image 003.png",
+  file: "after-upload.png",
 };
 
 export const checkoutMessage = {

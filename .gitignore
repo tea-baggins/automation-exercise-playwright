@@ -7,4 +7,5 @@ playwright/.local-browsers/
 downloads/
 .env
 *.png
+!after-upload.png
 *.txt

@@ -1,7 +1,7 @@
 import { test, expect } from "../helpers/fixtures";
 import Header from "../pageObject/header";
 import ContactUsPage from "../pageObject/contactUsPage";
-import { contactUsData, filePath } from "../helpers/testData";
+import { contactUsData, filePath } from "../helpers/testData.js";
 
 test.describe("Contact Us Form", () => {
   test("TC_06 |Verify contact us form", async ({ homePage, page }) => {
