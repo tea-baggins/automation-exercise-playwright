@@ -1,2 +1,0 @@
-File saved: downloads/invoice.txt
-Invoice downloaded on the path: downloads/invoice.txt
