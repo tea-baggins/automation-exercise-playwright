@@ -1,9 +1,13 @@
 # Automation Exercise Playwright
 
-[![Playwright Tests](https://github.com/tea-baggins/automation-exercise-playwright/actions/workflows/playwright.yml/badge.svg)](https://github.com/tea-baggins/automation-exercise-playwright/actions)
-
-[![Allure Report](https://img.shields.io/badge/Allure%20Report-View%20Here-green?style=flat-square&logo=allure)](https://tea-baggins.github.io/automation-exercise-playwright/)
-
+<p align="center">
+  <a href="https://github.com/tea-baggins/automation-exercise-playwright/actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/tea-baggins/automation-exercise-playwright/playwright.yml?branch=main&label=Playwright%20Tests&style=for-the-badge&logo=playwright&logoColor=white&color=0052cc" alt="Playwright Tests">
+  </a>
+  <a href="https://tea-baggins.github.io/automation-exercise-playwright/">
+    <img src="https://img.shields.io/badge/Allure%20Report-View%20Here-44cc11?style=for-the-badge&logo=allure&logoColor=white&color=44cc11" alt="Allure Report">
+  </a>
+</p>
 
 <p align="center">
   <img src="https://www.automationexercise.com/static/images/home/logo.png" alt="Website for practice automation" width="350" />
