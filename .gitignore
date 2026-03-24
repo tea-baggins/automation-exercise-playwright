@@ -7,5 +7,5 @@ playwright/.local-browsers/
 downloads/
 .env
 *.png
-!after-upload.png
+!Contact Us form.png
 *.txt

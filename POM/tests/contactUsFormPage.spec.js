@@ -21,7 +21,7 @@ test.describe("Contact Us Form", () => {
     await contactUsPage.uploadFile(filePath.file);
     await expect(contactUsPage.chooseFileButton()).toBeEnabled();
 
-    await page.screenshot({ path: "after-upload.png" });
+    await page.screenshot({ path: "Contact Us form.png" });
     await contactUsPage.acceptConfirmationPopup();
     await contactUsPage.clickSubmitButton();
 
