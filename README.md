@@ -1,4 +1,4 @@
-# Automation Exercise Playwright
+# <img src="https://playwright.dev/img/playwright-logo.svg" height="32" style="vertical-align: middle"> Automation Exercise Playwright
 
 <p align="center">
   <a href="https://github.com/tea-baggins/automation-exercise-playwright/actions">
@@ -32,9 +32,9 @@ AutomationExercise is a public e-commerce demo site created for QA engineers to 
 
 - **Advanced Fixtures Architecture:** Leverages Playwright's `test.extend` to provide pre-initialized **Page Objects**, implementing a clean **Dependency Injection** pattern and reducing boilerplate.
 - **Ad-Blocking & Stability Layer:** Features custom global hooks and programmatic interaction logic to ensure 100% test resilience against aggressive third-party overlays and dynamic ads.
-- **Data Integrity Testing:** Validates complex business logic by parsing and calculating cart totals ($Price \times Quantity = Total$).
+- **Data Integrity Testing:** Validates complex business logic by parsing and calculating cart totals (Price * Quantity = Total).
 - **CI/CD Integration:** Automated test execution on every push via **GitHub Actions**.
-- **Comprehensive Reporting:** Detailed HTML reports with traces, videos, and screenshots on failure.
+- **Comprehensive Reporting:** Detailed HTML reports with traces and screenshots on failure.
 
 ## 📁 Project Structure
 
@@ -108,14 +108,16 @@ test.describe("Add Products in Cart", () => {
 });
 ```
 
-## 🤖 CI/CD Implementation
+## ⚡ Reporting & CI/CD Implementation
 
-This project uses GitHub Actions to ensure code quality. The pipeline automatically:
+This project integrates **GitHub Actions** and **Allure Report** to provide deep visibility into every test execution:
 
-1. Provisions a Linux environment.
-2. Installs Node.js and project dependencies.
-3. Runs the entire test suite.
-4. Uploads an HTML report as an artifact if any test fails.
+1. **Automated Pipeline:** Tests run automatically on every `push` and `pull_request` using a headless Linux environment.
+2. **Comprehensive Allure Report:**
+    * **Visual Evidence:** Every test execution includes **automated screenshots** for immediate verification of the UI state.
+    * **Failure Analysis:** On failure, the report attaches **Playwright Traces** and detailed error logs to pinpoint the exact DOM element that caused the issue.
+    * **History Tracking:** The dashboard maintains a history of previous runs to monitor suite stability and flaky tests.
+3. **Live Access:** The latest report is always available via **GitHub Pages**. [View the Live Allure Report here](https://tea-baggins.github.io/automation-exercise-playwright/).
 
 ## 🛡️ Stability & Performance Optimization
 
