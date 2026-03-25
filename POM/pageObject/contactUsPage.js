@@ -15,7 +15,7 @@ class ContactUsPage {
     getSubmitButton: () => this.page.locator("input[data-qa='submit-button']"),
     getSuccessSubmissionMessage: () =>
       this.page.locator("div.status.alert.alert-success"),
-    getHomeButton: () => this.page.locator(".fa.fa-angle-double-left"),
+    getHomeButton: () => this.page.locator("#contact-page a.btn-success"),
   };
 
   getGetInTouchText() {
@@ -42,22 +42,56 @@ class ContactUsPage {
     return this;
   }
 
-  async uploadFile(filePath) {
-    const absolutePath = path.join(process.cwd(), filePath);
-    await this.locators.getUploadFileButton().setInputFiles(absolutePath);
-  }
-
   chooseFileButton() {
     return this.locators.getUploadFileButton();
   }
 
-  async clickSubmitButton() {
-    await this.locators.getSubmitButton().click();
-    return this;
+  /**
+   * Uploads a file to the Contact Us form.
+   * The relative path to the file from the project root.
+   */
+  async uploadFile(file) {
+    // Resolve the relative file path to an absolute path based on the current working directory
+    const absolutePath = path.resolve(process.cwd(), file);
+
+    // Optional: Log the absolute path for debugging purposes during test execution
+    // console.log(`Attempting to upload file from: ${absolutePath}`);
+
+    const uploadLocator = this.locators.getUploadFileButton();
+
+    // Attach the file to the input element using Playwright's setInputFiles
+    await uploadLocator.setInputFiles(absolutePath);
+
+    // Brief pause to ensure the UI updates the "No file chosen" label to the actual filename
+    await this.page.waitForTimeout(1000);
   }
 
-  async acceptConfirmationPopup() {
-    await this.page.on("dialog", async (alert) => await alert.accept());
+  /**
+   * Cleans up the UI from ads, handles the browser confirmation dialog,
+   * and submits the contact form.
+   */
+  async clickSubmitButton() {
+    // 1. Remove intrusive ads that may overlay or obstruct the 'Submit' button
+    await this.page.evaluate(() => {
+      const selectors = "ins.adsbygoogle, #aswift_0_host, iframe, .grippy-host";
+      document.querySelectorAll(selectors).forEach((el) => el.remove());
+    });
+
+    await this.page.waitForTimeout(1000);
+
+    // 2. Set up a one-time listener to automatically accept the browser 'Confirm' dialog
+    // This must be declared before the action that triggers the dialog
+    this.page.once("dialog", async (dialog) => {
+      // console.log(`Dialog detected: ${dialog.message()}`);
+      await dialog.accept();
+    });
+
+    // 3. Perform the click action on the Submit button
+    await this.locators.getSubmitButton().click();
+
+    // 4. Wait for the page to reach a stable state after form submission
+    // 'networkidle' ensures that no more network requests are being made
+    await this.page.waitForLoadState("networkidle");
   }
 
   async clickHomeButton() {

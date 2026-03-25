@@ -9,3 +9,5 @@ downloads/
 *.png
 !Contact Us form.png
 *.txt
+allure-results/
+allure-report/

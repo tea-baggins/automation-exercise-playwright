@@ -32,7 +32,7 @@ export default defineConfig({
   reporter: [
     ['html'],
     ['list'],
-    ['allure-playwright'] 
+    ['allure-playwright', { outputFolder: 'allure-results' }]
   ],
 
   use: {
@@ -49,9 +49,8 @@ export default defineConfig({
      * mainly on failure to optimize storage and debugging.
      */
     trace: 'retain-on-failure', 
-    screenshot: 'only-on-failure',
-    video: 'on-first-retry',
-
+    screenshot: 'on',
+    video: 'retain-on-failure',
     ignoreHTTPSErrors: true,
     headless: true,
   },
@@ -63,7 +62,7 @@ export default defineConfig({
         ...devices["Desktop Chrome"],
         launchOptions: {
           /* Flags to ensure stable browser launches in Linux/CI environments */
-          args: ["--disable-setuid-sandbox", "--no-sandbox", "--disable-gpu"]
+          args: ["--disable-setuid-sandbox", "--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"]
         },
       },
     },

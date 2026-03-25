@@ -1,6 +1,7 @@
 import BrandProductsPage from "./brandProductsPage";
 import ProductDetailsPage from "./productDetailsPage";
 import ViewCartPage from "./viewCartPage";
+import { expect } from "@playwright/test";
 
 class ProductsPage {
   constructor(page) {
@@ -61,27 +62,36 @@ class ProductsPage {
   }
 
   async hoverAndAddToCart(index) {
-    // 1. Get the specific product card based on the provided index
     const card = this.locators.getProductCard(index);
-
-    // 2. Locate the STATIC "Add to Cart" button (the one inside .productinfo)
-    // This avoids using the overlay button which is often blocked by ads or animations
     const addToCartButton = card.locator(".productinfo a.add-to-cart");
+    const modal = this.page.locator(".modal-content");
 
-    // 3. Scroll the element into view to ensure Playwright can "see" it in the viewport
     await addToCartButton.scrollIntoViewIfNeeded();
 
-    // 4. Perform a JavaScript-level click using .evaluate()
-    // This GUARANTEES the click happens even if invisible ads or overlays are blocking the element
-    await addToCartButton.evaluate((node) => node.click());
+    /**
+     * LOGIC: Sometimes the site's JS fails to trigger the modal on the first click
+     * due to ads or slow scripts. We will try to click and check for the modal.
+     */
+    await this.page.waitForLoadState("domcontentloaded");
 
-    // 5. Wait for the confirmation modal (popup) to appear
-    // This ensures the product was successfully added to the server-side session
-    const modal = this.page.locator(".modal-content");
-    await modal.waitFor({
-      state: "visible",
-      timeout: 10000,
-    });
+    // We use a loop or just a very resilient check.
+    // Let's use the most stable approach for this site:
+    await addToCartButton.click({ force: true });
+
+    // If the modal is still hidden, we wait a bit more aggressively
+    try {
+      // We wait for the modal to be ATTACHED first (present in DOM)
+      await modal.waitFor({ state: "attached", timeout: 5000 });
+      // Then we wait for it to be VISIBLE (opacity > 0, display != none)
+      await expect(modal).toBeVisible({ timeout: 10000 });
+    } catch (e) {
+      // If it failed, maybe the click didn't register? Let's try one more JS click.
+      await addToCartButton.evaluate((node) => node.click());
+      await expect(modal).toBeVisible({ timeout: 10000 });
+    }
+
+    // Ensure it's scrolled so we can click "Continue Shopping" later
+    await modal.scrollIntoViewIfNeeded();
   }
 
   async clickContinueShoppingButton() {

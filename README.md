@@ -17,21 +17,31 @@ AutomationExercise is a public e-commerce demo site created for QA engineers to 
 
 ---
 
+## 💻 Tech Stack & Environment
+
+- **Core Framework:** [Playwright](https://playwright.dev/) (Chromium)
+- **Language:** JavaScript (ES6+)
+- **Pattern:** Page Object Model (POM) with Custom Fixtures
+- **CI/CD:** GitHub Actions (Automated test runs on push/PR)
+- **Reporting:** Allure Report & Playwright HTML Report
+- **Environment:** Node.js v18+
+
+---
+
 ## 🌟 Key Features
 
-- **Advanced Fixtures Architecture:** Leverages Playwright's `test.extend` to provide pre-initialized **Page Objects**, significantly reducing boilerplate code and implementing a clean **Dependency Injection** pattern.
-- **Ad-Blocking & Stability Layer:** Features custom global hooks and programmatic interaction logic (`dispatchEvent`) to ensure 100% test resilience against aggressive third-party overlays and dynamic ads.
-- **Data Integrity Testing:** Beyond basic UI visibility checks, the framework validates business logic by parsing and calculating cart totals ($Price \times Quantity = Total$).
-- **Design Pattern:** Advanced **Page Object Model (POM)** for high maintainability.
+- **Advanced Fixtures Architecture:** Leverages Playwright's `test.extend` to provide pre-initialized **Page Objects**, implementing a clean **Dependency Injection** pattern and reducing boilerplate.
+- **Ad-Blocking & Stability Layer:** Features custom global hooks and programmatic interaction logic to ensure 100% test resilience against aggressive third-party overlays and dynamic ads.
+- **Data Integrity Testing:** Validates complex business logic by parsing and calculating cart totals ($Price \times Quantity = Total$).
 - **CI/CD Integration:** Automated test execution on every push via **GitHub Actions**.
-- **Comprehensive Reporting:** Detailed HTML reports with traces and screenshots on failure.
+- **Comprehensive Reporting:** Detailed HTML reports with traces, videos, and screenshots on failure.
 
 ## 📁 Project Structure
 
 The project follows a strict POM architecture located in the `POM/` directory:
 
 - `POM/helpers/fixtures.js` — Custom Playwright extension for dependency injection and ad-cleanup logic.
-- `POM/Pages/` — Page-specific classes (Login, Register, Contact, etc.) with unique actions.
+- `POM/pageObject/` — Page-specific classes (Login, Register, Contact, etc.) with unique actions.
 - `POM/tests/` — Clean test scripts organized by feature.
 - `playwright.config.js` — Optimized configuration (1 worker, retries, and artifacts management) for high-stability CI/CD runs.
 - `package.json` — Project dependencies and automation scripts.
@@ -110,9 +120,11 @@ This project uses GitHub Actions to ensure code quality. The pipeline automatica
 ## 🛡️ Stability & Performance Optimization
 
 To handle the specific challenges of `automationexercise.com`, the framework includes:
-- **Workers Limitation:** Configured to 1 worker to prevent session conflicts and server-side rate limiting.
-- **Smart Waits:** Utilization of `attached` and `detached` states to synchronize with asynchronous modal animations.
-- **Automated Cleanup:** JavaScript-based DOM injection to remove Google Ads before each test execution.
+
+* **Resilient Retry Logic:** Optimized Page Objects to handle legacy jQuery animations and slow modal transitions using **Web-First Assertions**.
+* **Workers Limitation:** Configured to 1 worker to prevent session conflicts and server-side rate limiting.
+* **Smart Synchronization:** Strategic use of `attached` states and bypassing problematic network states to maintain high execution speed despite heavy third-party ads.
+* **Automated Cleanup:** JavaScript-based DOM injection to remove Google Ads before each test execution.
 
 ## 📝 License & Contribution
 
