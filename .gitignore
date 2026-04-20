@@ -7,7 +7,7 @@ playwright/.local-browsers/
 downloads/
 .env
 *.png
-!Contact Us form.png
+!contact_us_form.png
 *.txt
 allure-results/
 allure-report/
